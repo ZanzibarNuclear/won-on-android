@@ -1,2 +1,2 @@
 # won-on-android
-Android app to engage in the World of Nuclear
+Mobile client to Zanzibar's World of Nuclear Energy
