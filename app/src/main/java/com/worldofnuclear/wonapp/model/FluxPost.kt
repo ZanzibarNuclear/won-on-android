@@ -1,8 +1,8 @@
 package com.worldofnuclear.wonapp.model
 
+import kotlinx.serialization.Contextual
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import java.sql.Timestamp
 
 @Serializable
 data class FluxPost(
@@ -20,7 +20,18 @@ data class FluxPost(
     @SerialName(value = "view_count")
     val viewCount: Int,
     @SerialName(value = "created_at")
-    val createdAt: Timestamp,
+    @Contextual
+    val createdAt: Long,
     @SerialName(value = "updated_at")
-    val updatedAt: Timestamp,
+    @Contextual
+    val updatedAt: Long,
 )
+
+/*
+data class Post(
+    val id: Long,
+    val content: String,
+    val author: String,
+    val timestamp: Long
+)
+ */

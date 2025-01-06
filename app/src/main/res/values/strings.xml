@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">World of Nuclear</string>
+    <string name="flux_prompt">What\'s got you excited today?</string>
+    <string name="submit_flux">Flux it!</string>
+    <string name="boosts">boosts</string>
+    <string name="reactions">reactions</string>
+    <string name="views">views</string>
 </resources>
