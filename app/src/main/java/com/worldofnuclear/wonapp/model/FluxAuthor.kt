@@ -1,12 +1,12 @@
 package com.worldofnuclear.wonapp.model
 
-import java.sql.Timestamp
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class FluxAuthor(
     val id: Int,
-    val userId: String,
     val handle: String,
+    @SerialName(value = "display_name")
     val displayName: String,
-    val createdAt: Timestamp,
-    val updatedAt: Timestamp
 )
