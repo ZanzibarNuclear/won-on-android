@@ -2,7 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-    kotlin("plugin.serialization") version "1.9.0"
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.9.10"
 }
 
 android {
@@ -40,6 +40,9 @@ android {
     }
 }
 
+configurations.all {
+    resolutionStrategy.force("org.jetbrains:annotations:23.0.0")
+}
 dependencies {
 
     implementation(libs.androidx.core.ktx)
@@ -52,9 +55,9 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
-    implementation(libs.androidx.room.ktx)
-    implementation(libs.androidx.room.compiler)
-    implementation(libs.androidx.room.runtime)
+//    implementation(libs.androidx.room.ktx)
+//    implementation(libs.androidx.room.compiler)
+//    implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)

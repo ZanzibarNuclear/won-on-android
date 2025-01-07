@@ -11,7 +11,7 @@ interface AppContainer {
 }
 
 class DefaultAppContainer : AppContainer {
-    private val BASE_URL = "https://api.worldofnuclear.com/api"
+    private val BASE_URL = "https://api.worldofnuclear.com/api/"
 
     private val retrofit: Retrofit = Retrofit.Builder()
         .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
