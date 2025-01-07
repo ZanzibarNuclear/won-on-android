@@ -1,6 +1,7 @@
 package com.worldofnuclear.wonapp.ui
 
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -12,8 +13,14 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Add
+import androidx.compose.material.icons.outlined.Edit
+import androidx.compose.material.icons.outlined.Face
+import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,6 +30,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
@@ -147,12 +155,31 @@ fun PostCard(post: FluxPost) {
                 style = MaterialTheme.typography.bodyLarge
             )
             Spacer(modifier = Modifier.height(dimensionResource(R.dimen.v_spacing_double)))
-            Row {
-                Button(onClick = { /* Handle View */ }) { Text(stringResource(R.string.views)) }
-                Spacer(modifier = Modifier.width(dimensionResource(R.dimen.v_spacing_double)))
-                Button(onClick = { /* Handle Boost */ }) { Text(stringResource(R.string.boosts)) }
-                Spacer(modifier = Modifier.width(dimensionResource(R.dimen.v_spacing_double)))
-                Button(onClick = { /* Handle React */ }) { Text(stringResource(R.string.reactions)) }
+            Row (
+                horizontalArrangement = Arrangement.SpaceBetween,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Button(onClick = { /* Handle View */ }) {
+                    Icon(
+                        Icons.Outlined.Face,
+                        contentDescription = "views"
+                    )
+                    Text(stringResource(R.string.views, post.viewCount))
+                }
+                Button(onClick = { /* Handle Boost */ }) {
+                    Icon(
+                        Icons.Outlined.Favorite,
+                        contentDescription = "boosts"
+                    )
+                    Text(stringResource(R.string.boosts, post.boostCount))
+                }
+                Button(onClick = { /* Handle React */ }) {
+                    Icon(
+                        Icons.Outlined.Edit,
+                        contentDescription = "reactions"
+                    )
+                    Text(stringResource(R.string.reactions, post.replyCount))
+                }
             }
         }
     }
