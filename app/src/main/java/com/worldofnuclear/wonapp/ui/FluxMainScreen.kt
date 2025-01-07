@@ -17,7 +17,6 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -31,6 +30,9 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.worldofnuclear.wonapp.R
 import com.worldofnuclear.wonapp.model.FluxPost
+import java.time.Instant
+import java.time.format.DateTimeFormatter
+import java.util.Date
 
 @Composable
 fun FluxMainScreen(
@@ -51,14 +53,14 @@ fun FluxMainScreen(
 
 @Composable
 fun FluxEntryForm(
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier
 ) {
     var postContent by remember { mutableStateOf(TextFieldValue()) }
 
     BasicTextField(
         value = postContent,
         onValueChange = { postContent = it },
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .height(dimensionResource(R.dimen.flux_entry_box_height))
             .padding(dimensionResource(R.dimen.padding_small))
@@ -93,12 +95,12 @@ fun FluxScroller(
             Text(stringResource(R.string.loading_flux), modifier = modifier.fillMaxSize())
 
         is FluxUiState.Success -> {
-            val posts = fluxUiState.fluxes
-            if (posts.isEmpty()) {
+            val envelope = fluxUiState.fluxes
+            if (envelope.total == 0) {
                 Text(stringResource(R.string.no_flux), modifier = modifier.fillMaxSize())
             } else {
                 LazyColumn {
-                    items(posts) { post ->
+                    items(envelope.items) { post ->
                         PostCard(post)
                     }
                 }
@@ -112,7 +114,8 @@ fun FluxScroller(
 
 @Composable
 fun PostCard(post: FluxPost) {
-    val timeElapsed = formatTimeElapsed(post.createdAt)
+    val createdAtTs = Instant.parse(post.createdAt).toEpochMilli()
+    val timeElapsed = formatTimeElapsed(createdAtTs)
     Card(
         modifier = Modifier
             .fillMaxWidth()

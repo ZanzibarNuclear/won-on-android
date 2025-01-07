@@ -3,6 +3,7 @@ package com.worldofnuclear.wonapp.model
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.Serializer
 
 @Serializable
 data class FluxPost(
@@ -21,10 +22,17 @@ data class FluxPost(
     val viewCount: Int,
     @SerialName(value = "created_at")
     @Contextual
-    val createdAt: Long,
+    val createdAt: String,
     @SerialName(value = "updated_at")
     @Contextual
-    val updatedAt: Long,
+    val updatedAt: String,
+)
+
+@Serializable
+data class FluxPostResponse(
+    val items: List<FluxPost>,
+    val total: Int,
+    val hasMore: Boolean
 )
 
 /*

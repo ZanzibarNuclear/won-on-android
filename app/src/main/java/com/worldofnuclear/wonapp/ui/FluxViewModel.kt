@@ -10,18 +10,13 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.worldofnuclear.wonapp.WonApplication
 import com.worldofnuclear.wonapp.data.FluxRepository
-import com.worldofnuclear.wonapp.model.FluxPost
-import com.worldofnuclear.wonapp.model.POFluxUiState
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
+import com.worldofnuclear.wonapp.model.FluxPostResponse
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.io.IOException
 
 sealed interface FluxUiState {
-    data class Success(val fluxes: List<FluxPost>) : FluxUiState
+    data class Success(val fluxes: FluxPostResponse) : FluxUiState
     object Error : FluxUiState
     object Loading : FluxUiState
 }
