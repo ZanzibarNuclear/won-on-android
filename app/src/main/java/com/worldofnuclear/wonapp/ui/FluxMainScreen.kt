@@ -34,59 +34,90 @@ import com.worldofnuclear.wonapp.model.FluxPost
 
 @Composable
 fun FluxMainScreen(
-    modifier: Modifier = Modifier,
     viewModel: FluxViewModel = viewModel(),
+    modifier: Modifier = Modifier,
+) {
+    val fluxUiState = viewModel.fluxUiState
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .padding(dimensionResource(R.dimen.padding_medium))
+    ) {
+        FluxEntryForm(modifier)
+        Spacer(modifier = Modifier.height(dimensionResource(R.dimen.padding_medium)))
+        FluxScroller(fluxUiState, modifier)
+    }
+}
+
+@Composable
+fun FluxEntryForm(
+    modifier: Modifier = Modifier,
 ) {
     var postContent by remember { mutableStateOf(TextFieldValue()) }
-    val uiState by viewModel.uiState.collectAsState()
-    val posts = uiState.fluxes
 
-
-
-    Column(modifier = modifier
-        .fillMaxSize()
-        .padding(dimensionResource(R.dimen.padding_medium))) {
-        BasicTextField(
-            value = postContent,
-            onValueChange = { postContent = it },
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(dimensionResource(R.dimen.flux_entry_box_height))
-                .padding(dimensionResource(R.dimen.padding_small))
-                .border(1.dp, Color.Gray),
-            decorationBox = { innerTextField ->
-                if (postContent.text.isEmpty()) {
-                    Text(stringResource(R.string.flux_prompt), color = Color.Gray)
-                }
-                innerTextField()
+    BasicTextField(
+        value = postContent,
+        onValueChange = { postContent = it },
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(dimensionResource(R.dimen.flux_entry_box_height))
+            .padding(dimensionResource(R.dimen.padding_small))
+            .border(1.dp, Color.Gray),
+        decorationBox = { innerTextField ->
+            if (postContent.text.isEmpty()) {
+                Text(stringResource(R.string.flux_prompt), color = Color.Gray)
             }
-        )
-        Button(
-            onClick = {
-                if (postContent.text.isNotEmpty()) {
+            innerTextField()
+        }
+    )
+    Button(
+        onClick = {
+            if (postContent.text.isNotEmpty()) {
 // TODO                   viewModel.submitPost(postContent.text)
-                    postContent = TextFieldValue("") // Clear input
+                postContent = TextFieldValue("") // Clear input
+            }
+        },
+        modifier = Modifier.padding(top = dimensionResource(R.dimen.padding_small))
+    ) {
+        Text(stringResource(R.string.submit_flux))
+    }
+}
+
+@Composable
+fun FluxScroller(
+    fluxUiState: FluxUiState,
+    modifier: Modifier = Modifier
+) {
+    when (fluxUiState) {
+        is FluxUiState.Loading ->
+            Text(stringResource(R.string.loading_flux), modifier = modifier.fillMaxSize())
+
+        is FluxUiState.Success -> {
+            val posts = fluxUiState.fluxes
+            if (posts.isEmpty()) {
+                Text(stringResource(R.string.no_flux), modifier = modifier.fillMaxSize())
+            } else {
+                LazyColumn {
+                    items(posts) { post ->
+                        PostCard(post)
+                    }
                 }
-            },
-            modifier = Modifier.padding(top = dimensionResource(R.dimen.padding_small))
-        ) {
-            Text(stringResource(R.string.submit_flux))
-        }
-        Spacer(modifier = Modifier.height(dimensionResource(R.dimen.padding_medium)))
-        LazyColumn {
-            items(posts) { post ->
-                PostCard(post)
             }
         }
+
+        else ->
+            Text(stringResource(R.string.failed_flux_loading), modifier = modifier.fillMaxSize())
     }
 }
 
 @Composable
 fun PostCard(post: FluxPost) {
     val timeElapsed = formatTimeElapsed(post.createdAt)
-    Card(modifier = Modifier
-        .fillMaxWidth()
-        .padding(vertical = dimensionResource(R.dimen.v_spacing_single))) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = dimensionResource(R.dimen.v_spacing_single))
+    ) {
         Column(modifier = Modifier.padding(dimensionResource(R.dimen.padding_medium))) {
             post.author?.let {
                 Text(

@@ -11,7 +11,7 @@ import com.worldofnuclear.wonapp.ui.theme.WoNAppTheme
 
 @Composable
 fun WorldOfNuclearApp(
-    fluxViewModel: FluxViewModel = viewModel(),
+    fluxViewModel: FluxViewModel = viewModel(factory = FluxViewModel.Factory),
 ) {
     // TODO: top-level structure and navigation go here
     Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
