@@ -21,18 +21,19 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.fromHtml
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.worldofnuclear.wonapp.R
 import com.worldofnuclear.wonapp.model.FluxPost
 import java.time.Instant
-import java.time.format.DateTimeFormatter
-import java.util.Date
 
 @Composable
 fun FluxMainScreen(
@@ -122,15 +123,29 @@ fun PostCard(post: FluxPost) {
             .padding(vertical = dimensionResource(R.dimen.v_spacing_single))
     ) {
         Column(modifier = Modifier.padding(dimensionResource(R.dimen.padding_medium))) {
-            post.author?.let {
+            Row {
+                post.author?.let {
+                    Text(
+                        text = it.displayName,
+                        style = MaterialTheme.typography.titleMedium,
+                        modifier = Modifier.padding(horizontal = 2.dp)
+                    )
+                    Text(
+                        text = stringResource(R.string.handle, it.handle),
+                        style = MaterialTheme.typography.titleMedium,
+                        modifier = Modifier.padding(horizontal = 2.dp)
+                    )
+                }
                 Text(
-                    text = it.handle,
-                    style = MaterialTheme.typography.titleMedium
-                )
+                    text = timeElapsed,
+                    style = MaterialTheme.typography.bodySmall,
+                    modifier = Modifier.align(Alignment.CenterVertically))
             }
-            Text(text = timeElapsed, style = MaterialTheme.typography.bodySmall)
             Spacer(modifier = Modifier.height(dimensionResource(R.dimen.v_spacing_double)))
-            Text(text = post.content, style = MaterialTheme.typography.bodyLarge)
+            Text(
+                text = AnnotatedString.fromHtml(post.content),
+                style = MaterialTheme.typography.bodyLarge
+            )
             Spacer(modifier = Modifier.height(dimensionResource(R.dimen.v_spacing_double)))
             Row {
                 Button(onClick = { /* Handle View */ }) { Text(stringResource(R.string.views)) }
@@ -149,6 +164,7 @@ fun formatTimeElapsed(timestamp: Long): String {
     return when {
         seconds < 60 -> "$seconds seconds ago"
         seconds < 3600 -> "${seconds / 60} minutes ago"
-        else -> "${seconds / 3600} hours ago"
+        seconds < 86400 -> "${seconds / 3600} hours ago"
+        else -> "${seconds / 86400} days ago"
     }
 }
