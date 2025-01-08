@@ -1,0 +1,60 @@
+{
+  "items": [
+    {
+      "id": 18,
+      "flux_user_id": 2,
+      "content": "<p>What fun is in store for the new year? We have big plans. Improvements to Flux. A mobile app. A simulation adventure game. Lots of ways to learn about nuclear energy. </p><p>Join us. You are most welcome. </p>",
+      "parent_id": null,
+      "reply_count": 0,
+      "boost_count": 1,
+      "created_at": "2024-12-31T20:30:10.050Z",
+      "updated_at": "2024-12-31T20:30:10.050Z",
+      "deleted_at": null,
+      "blargy": null,
+      "view_count": 1,
+      "author": {
+        "id": 2,
+        "handle": "NuclearDave",
+        "display_name": "Nuclear Dave"
+      }
+    },
+    {
+      "id": 17,
+      "flux_user_id": 1,
+      "content": "<p>Merry Christmas, everyone!</p><p>Let's enjoy a little break from the hustle and bustle, while we dream of what's to come.</p>",
+      "parent_id": null,
+      "reply_count": 0,
+      "boost_count": 0,
+      "created_at": "2024-12-25T16:57:14.984Z",
+      "updated_at": "2024-12-25T16:57:14.984Z",
+      "deleted_at": null,
+      "blargy": null,
+      "view_count": 0,
+      "author": {
+        "id": 1,
+        "handle": "real-zanzibar-hero",
+        "display_name": "Zanzi"
+      }
+    },
+    {
+      "id": 16,
+      "flux_user_id": 2,
+      "content": "<p>Why not invite some friends?</p>",
+      "parent_id": 6,
+      "reply_count": 0,
+      "boost_count": 0,
+      "created_at": "2024-11-26T23:24:14.891Z",
+      "updated_at": "2024-11-26T23:24:14.891Z",
+      "deleted_at": null,
+      "blargy": null,
+      "view_count": 0,
+      "author": {
+        "id": 2,
+        "handle": "NuclearDave",
+        "display_name": "Nuclear Dave"
+      }
+    }
+  ],
+  "total": 3,
+  "hasMore": true
+}
