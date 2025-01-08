@@ -10,6 +10,7 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.worldofnuclear.wonapp.WonApplication
 import com.worldofnuclear.wonapp.data.FluxRepository
+import com.worldofnuclear.wonapp.model.FluxPost
 import com.worldofnuclear.wonapp.model.FluxPostResponse
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
@@ -39,6 +40,15 @@ class FluxViewModel(private val fluxRepository: FluxRepository) : ViewModel() {
             } catch (e: HttpException) {
                 FluxUiState.Error
             }
+        }
+    }
+
+    fun viewFluxPost(post: FluxPost) {
+
+    }
+
+    fun boostPost(post: FluxPost) {
+        viewModelScope.launch {
         }
     }
 

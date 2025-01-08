@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -33,6 +34,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.fromHtml
@@ -144,11 +146,12 @@ fun PostCard(post: FluxPost) {
                         modifier = Modifier.padding(horizontal = 2.dp)
                     )
                 }
-                Text(
-                    text = timeElapsed,
-                    style = MaterialTheme.typography.bodySmall,
-                    modifier = Modifier.align(Alignment.CenterVertically))
             }
+            Text(
+                text = timeElapsed,
+                style = MaterialTheme.typography.labelSmall,
+                modifier = Modifier.align(Alignment.Start)
+            )
             Spacer(modifier = Modifier.height(dimensionResource(R.dimen.v_spacing_double)))
             Text(
                 text = AnnotatedString.fromHtml(post.content),
@@ -162,23 +165,37 @@ fun PostCard(post: FluxPost) {
                 Button(onClick = { /* Handle View */ }) {
                     Icon(
                         Icons.Outlined.Face,
-                        contentDescription = "views"
+                        contentDescription = "views",
+                        modifier = Modifier.padding(end = 2.dp)
                     )
-                    Text(stringResource(R.string.views, post.viewCount))
+                    Text(
+                        text = post.viewCount.toString(),
+                        style = MaterialTheme.typography.labelSmall
+                    )
                 }
                 Button(onClick = { /* Handle Boost */ }) {
                     Icon(
-                        Icons.Outlined.Favorite,
-                        contentDescription = "boosts"
+                        painter = painterResource(R.drawable.boost),
+                        contentDescription = "boosts",
+                        modifier = Modifier
+                            .padding(end = 2.dp)
+                            .size(24.dp)
                     )
-                    Text(stringResource(R.string.boosts, post.boostCount))
+                    Text(
+                        post.boostCount.toString(),
+                        style = MaterialTheme.typography.labelSmall
+                    )
                 }
                 Button(onClick = { /* Handle React */ }) {
                     Icon(
                         Icons.Outlined.Edit,
-                        contentDescription = "reactions"
+                        contentDescription = "reactions",
+                        modifier = Modifier.padding(end = 2.dp)
                     )
-                    Text(stringResource(R.string.reactions, post.replyCount))
+                    Text(
+                        post.replyCount.toString(),
+                        style = MaterialTheme.typography.labelSmall
+                    )
                 }
             }
         }
