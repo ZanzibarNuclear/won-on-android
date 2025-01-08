@@ -28,6 +28,7 @@ class FluxViewModel(private val fluxRepository: FluxRepository) : ViewModel() {
 
     init {
         fetchFluxPosts()
+        // TODO - stash loaded fluxes in Room (local database) and point UI to that??
     }
 
     fun fetchFluxPosts() {
@@ -43,12 +44,12 @@ class FluxViewModel(private val fluxRepository: FluxRepository) : ViewModel() {
         }
     }
 
-    fun viewFluxPost(post: FluxPost) {
-
-    }
+    // TODO: get user logged in somehow...
 
     fun boostPost(post: FluxPost) {
         viewModelScope.launch {
+            val boostedFlux = fluxRepository.boostFlux(post.id)
+            // TODO: put updated flux post where user can see it
         }
     }
 
