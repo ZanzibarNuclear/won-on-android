@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">World of Nuclear</string>
+    <string name="flux_prompt">What\'s got you excited today?</string>
+    <string name="submit_flux">Flux it!</string>
+    <string name="views">%1$s views</string>
+    <string name="boosts">%1$s boosts</string>
+    <string name="reactions">%1$s reactions</string>
+    <string name="loading_flux">Finding fresh flux. One moment, please.</string>
+    <string name="no_flux">Nothing to see here. No flux found.</string>
+    <string name="failed_flux_loading">Hmm, something went wrong in our search for flux.</string>
+    <string name="handle">\@%1$s</string>
 </resources>

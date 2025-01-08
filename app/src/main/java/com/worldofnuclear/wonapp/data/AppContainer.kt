@@ -11,10 +11,14 @@ interface AppContainer {
 }
 
 class DefaultAppContainer : AppContainer {
-    private val BASE_URL = "https://api.worldofnuclear.com/api"
+    private val BASE_URL = "https://api.worldofnuclear.com/api/"
+
+    private val json = Json {
+        ignoreUnknownKeys = true
+    }
 
     private val retrofit: Retrofit = Retrofit.Builder()
-        .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
+        .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
         .baseUrl(BASE_URL)
         .build()
 
